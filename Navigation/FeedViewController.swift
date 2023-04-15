@@ -8,23 +8,26 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .systemMint
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
+   
+    private lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.isUserInteractionEnabled = true
         button.frame = CGRect(x: 125, y: 100, width: 150, height: 30)
         button.setTitle("Показать пост", for: .normal)
         button.backgroundColor = .white
         view.addSubview(button)
-        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)        
+        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
+        return button
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemMint
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        view.addSubview(button)
     }
     
     @objc func showPost() {
@@ -34,3 +37,4 @@ class FeedViewController: UIViewController {
         navigationController?.pushViewController(postViewController, animated: true)
     }
 }
+
