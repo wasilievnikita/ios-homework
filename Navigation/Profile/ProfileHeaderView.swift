@@ -11,7 +11,7 @@ import UIKit
 class ProfileHeaderView: UIView {
     
     private var statusText: String = ""
-
+    
     private let signature: UILabel = {
         let signature = UILabel()
         signature.text = "Waiting for action..."
@@ -32,7 +32,7 @@ class ProfileHeaderView: UIView {
         photo.layer.borderColor = UIColor.white.cgColor
         photo.contentMode = .scaleAspectFit
         photo.clipsToBounds = true
-        photo.layer.cornerRadius = 75
+        photo.layer.cornerRadius = 65
         photo.image = UIImage(named: "snoopDogg")
         return photo
     }()
@@ -62,14 +62,10 @@ class ProfileHeaderView: UIView {
         statusButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         return statusButton
     }()
-  
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(signature)
-        addSubview(name)
-        addSubview(photo)
-        addSubview(statusButton)
-        addSubview(textField)
+        addViews()
     }
     
     required init?(coder: NSCoder) {
@@ -78,12 +74,17 @@ class ProfileHeaderView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-       
-        name.frame = CGRect(x: 200, y: 150, width: 200, height: 20)
-        signature.frame = CGRect(x: 200, y: 230, width: 200, height: 20)
-        statusButton.frame = CGRect(x: 16, y: 300, width: frame.width - 32, height: 50)
-        photo.frame = CGRectMake(16, 120, 150, 150)
-        textField.frame = CGRect(x: 200, y: 180, width: 150, height: 40)
+        
+        layout()
+    }
+    
+    func addViews() {
+        addSubview(signature)
+        addSubview(name)
+        addSubview(photo)
+        addSubview(statusButton)
+        addSubview(textField)
+
     }
     
     @objc func buttonPressed() {
@@ -92,11 +93,46 @@ class ProfileHeaderView: UIView {
         } else {
             print(statusText)
         }
-     }
-
+    }
+    
     @objc func statusTextChanged(_ textfield: UITextField) {
         if let titleStatus = textField.text {
             statusText = titleStatus
         }
+    }
+    
+    private func layout() {
+        
+        photo.translatesAutoresizingMaskIntoConstraints = false
+        name.translatesAutoresizingMaskIntoConstraints = false
+        signature.translatesAutoresizingMaskIntoConstraints = false
+        statusButton.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            photo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            photo.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            photo.widthAnchor.constraint(equalToConstant: 130),
+            photo.heightAnchor.constraint(equalToConstant: 130),
+            
+            name.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 20),
+            name.topAnchor.constraint(equalTo: topAnchor, constant: 27),
+            name.widthAnchor.constraint(equalToConstant: 120),
+            
+            statusButton.topAnchor.constraint(equalTo: photo.bottomAnchor, constant: 16),
+            statusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            statusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            statusButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            signature.leadingAnchor.constraint(equalTo: name.leadingAnchor),
+            signature.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -54),
+            signature.widthAnchor.constraint(equalToConstant: 150),
+            
+            textField.leadingAnchor.constraint(equalTo: name.leadingAnchor),
+            textField.widthAnchor.constraint(equalToConstant: 150),
+            textField.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -5),
+            textField.heightAnchor.constraint(equalToConstant: 40)
+            
+        ])
     }
 }
