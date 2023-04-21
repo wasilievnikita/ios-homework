@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3892E52829EF1176004BA31E /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3892E52729EF1176004BA31E /* UIColorExtension.swift */; };
+		3892E52A29EF12CE004BA31E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3892E52929EF12CE004BA31E /* LogInViewController.swift */; };
 		3896402629E72D0C007B787C /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3896402529E72D0C007B787C /* ProfileHeaderView.swift */; };
 		38A07D3529DF485A00133A91 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A07D3429DF485A00133A91 /* AppDelegate.swift */; };
 		38A07D3729DF485A00133A91 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A07D3629DF485A00133A91 /* SceneDelegate.swift */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3892E52729EF1176004BA31E /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		3892E52929EF12CE004BA31E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		3896402529E72D0C007B787C /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		38A07D3129DF485A00133A91 /* Navigation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navigation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38A07D3429DF485A00133A91 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +54,7 @@
 			children = (
 				3896402529E72D0C007B787C /* ProfileHeaderView.swift */,
 				38A07D3829DF485A00133A91 /* ProfileViewController.swift */,
+				3892E52929EF12CE004BA31E /* LogInViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -77,6 +82,7 @@
 				38A07D3629DF485A00133A91 /* SceneDelegate.swift */,
 				38A07D4C29DF50FF00133A91 /* PostViewController.swift */,
 				38A07D5029DF575F00133A91 /* InfoViewController.swift */,
+				3892E52729EF1176004BA31E /* UIColorExtension.swift */,
 				38A07D4829DF4AD700133A91 /* FeedViewController.swift */,
 				3896402729E72E15007B787C /* Profile */,
 				38A07D4E29DF551D00133A91 /* Post.swift */,
@@ -162,8 +168,10 @@
 				38A07D4929DF4AD700133A91 /* FeedViewController.swift in Sources */,
 				38A07D5129DF575F00133A91 /* InfoViewController.swift in Sources */,
 				38A07D4F29DF551D00133A91 /* Post.swift in Sources */,
+				3892E52829EF1176004BA31E /* UIColorExtension.swift in Sources */,
 				38A07D3729DF485A00133A91 /* SceneDelegate.swift in Sources */,
 				38A07D4D29DF50FF00133A91 /* PostViewController.swift in Sources */,
+				3892E52A29EF12CE004BA31E /* LogInViewController.swift in Sources */,
 				3896402629E72D0C007B787C /* ProfileHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

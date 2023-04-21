@@ -17,20 +17,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         
-        let profileViewController = ProfileViewController()
+        let loginViewCOntroller = LogInViewController()
         let feedViewController = FeedViewController()
         
-        let profileNavViewController = UINavigationController(rootViewController: profileViewController)
+        let loginNavViewCOntroller = UINavigationController(rootViewController: loginViewCOntroller)
+        loginNavViewCOntroller.navigationBar.isHidden = true
         let feedNavViewController = UINavigationController(rootViewController: feedViewController)
         
-        profileNavViewController.tabBarItem.title = "Профиль"
-        profileNavViewController.tabBarItem.image = UIImage(named: "person.circle.fill")
+        loginNavViewCOntroller.tabBarItem.title = "Профиль"
+        loginNavViewCOntroller.tabBarItem.image = UIImage(named: "person.circle.fill")
       
         feedNavViewController.tabBarItem.title = "Лента"
         feedNavViewController.tabBarItem.image = UIImage(named: "cursorarrow.and.square.on.square.dashed")
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [profileNavViewController, feedNavViewController]
+        tabBarController.viewControllers = [loginNavViewCOntroller, feedNavViewController]
         tabBarController.tabBar.backgroundColor = .white
         
         window.backgroundColor = .white
