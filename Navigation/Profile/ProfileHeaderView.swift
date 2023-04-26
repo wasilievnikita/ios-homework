@@ -5,6 +5,7 @@
 //  Created by Никита Васильев on 12.04.2023.
 //
 
+import Foundation
 import UIKit
 
 class ProfileHeaderView: UIView {
@@ -13,7 +14,6 @@ class ProfileHeaderView: UIView {
     
     private let signature: UILabel = {
         let signature = UILabel()
-        signature.translatesAutoresizingMaskIntoConstraints = false
         signature.text = "Waiting for action..."
         signature.font = UIFont(name: "HelveticaNeue", size: 14)
         return signature
@@ -21,7 +21,6 @@ class ProfileHeaderView: UIView {
     
     private let name: UILabel = {
         let name = UILabel()
-        name.translatesAutoresizingMaskIntoConstraints = false
         name.text = "Snoop Dogg"
         name.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         return name
@@ -29,7 +28,6 @@ class ProfileHeaderView: UIView {
     
     private let photo: UIImageView = {
         let photo = UIImageView()
-        photo.translatesAutoresizingMaskIntoConstraints = false
         photo.layer.borderWidth = 3
         photo.layer.borderColor = UIColor.white.cgColor
         photo.contentMode = .scaleAspectFit
@@ -41,12 +39,8 @@ class ProfileHeaderView: UIView {
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.font = UIFont(name: "HelveticaNeue", size: 15)
         textField.backgroundColor = .white
-        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        textField.textAlignment = .left
-        textField.leftViewMode = .always
         textField.layer.cornerRadius = 12
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
@@ -57,7 +51,6 @@ class ProfileHeaderView: UIView {
     
     private lazy var statusButton: UIButton = {
         let statusButton = UIButton()
-        statusButton.translatesAutoresizingMaskIntoConstraints = false
         statusButton.setTitle("Показать статус", for: .normal)
         statusButton.layer.cornerRadius = 4
         statusButton.layer.shadowRadius = 4
@@ -73,7 +66,6 @@ class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addViews()
-        layout()
     }
     
     required init?(coder: NSCoder) {
@@ -82,6 +74,7 @@ class ProfileHeaderView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         layout()
     }
     
@@ -91,6 +84,7 @@ class ProfileHeaderView: UIView {
         addSubview(photo)
         addSubview(statusButton)
         addSubview(textField)
+
     }
     
     @objc func buttonPressed() {
@@ -108,7 +102,13 @@ class ProfileHeaderView: UIView {
     }
     
     private func layout() {
-   
+        
+        photo.translatesAutoresizingMaskIntoConstraints = false
+        name.translatesAutoresizingMaskIntoConstraints = false
+        signature.translatesAutoresizingMaskIntoConstraints = false
+        statusButton.translatesAutoresizingMaskIntoConstraints = false
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             photo.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             photo.topAnchor.constraint(equalTo: topAnchor, constant: 16),
@@ -123,7 +123,6 @@ class ProfileHeaderView: UIView {
             statusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             statusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             statusButton.heightAnchor.constraint(equalToConstant: 50),
-            statusButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
             
             signature.leadingAnchor.constraint(equalTo: name.leadingAnchor),
             signature.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -54),
