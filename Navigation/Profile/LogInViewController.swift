@@ -39,35 +39,55 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         vkLogo.image = UIImage(named: "logo")
         return vkLogo
     }()
+ 
+    
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+              stackView.axis = .vertical
+              stackView.spacing = 0
+              stackView.layer.borderColor = UIColor.lightGray.cgColor
+              stackView.layer.borderWidth = 0.5
+              stackView.layer.cornerRadius = 10
+              stackView.translatesAutoresizingMaskIntoConstraints = false
+              stackView.clipsToBounds = true
+              return stackView
+    }()
+    
+    private let viewSeparate: UIView = {
+        let view = UIView()
+               view.translatesAutoresizingMaskIntoConstraints = false
+               view.backgroundColor = .systemGray4
+               return view
+    }()
     
     private lazy var textFieldLogin: UITextField = {
-        let textFieldLogin = UITextField()
-        textFieldLogin.translatesAutoresizingMaskIntoConstraints = false
-        textFieldLogin.font = .systemFont(ofSize: 16)
-        textFieldLogin.textColor = .black
-        textFieldLogin.backgroundColor = .systemGray6
-        textFieldLogin.autocapitalizationType = .none
-        textFieldLogin.layer.cornerRadius = 10
-        textFieldLogin.layer.borderColor = UIColor.lightGray.cgColor
-        textFieldLogin.layer.borderWidth = 0.5
-        textFieldLogin.placeholder = " Email of phone "
-        textFieldLogin.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-        return textFieldLogin
+        let texField = UITextField()
+        texField.translatesAutoresizingMaskIntoConstraints = false
+        texField.font = .systemFont(ofSize: 16)
+        texField.textColor = .black
+        texField.textAlignment = .left
+        texField.leftViewMode = .always
+        texField.backgroundColor = .systemGray6
+        texField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        texField.autocapitalizationType = .none
+        texField.placeholder = " Email of phone "
+
+        return texField
     }()
 
     private lazy var textFieldPass: UITextField = {
-        let textFieldPass = UITextField()
-        textFieldPass.translatesAutoresizingMaskIntoConstraints = false
-        textFieldPass.font = .systemFont(ofSize: 16)
-        textFieldPass.textColor = .black
-        textFieldPass.backgroundColor = .systemGray6
-        textFieldPass.layer.cornerRadius = 10
-        textFieldPass.layer.borderColor = UIColor.lightGray.cgColor
-        textFieldPass.layer.borderWidth = 0.5
-        textFieldPass.placeholder = " Password "
-        textFieldPass.isSecureTextEntry = true
-        textFieldPass.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
-        return textFieldPass
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = .systemFont(ofSize: 16)
+        textField.textColor = .black
+        textField.backgroundColor = .systemGray6
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.textAlignment = .left
+        textField.leftViewMode = .always
+        textField.autocapitalizationType = .none
+        textField.placeholder = " Password "
+        textField.isSecureTextEntry = true
+        return textField
     }()
 
     private lazy var button: UIButton = {
@@ -119,6 +139,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     func layout() {
         
         view.addSubview(scrollView)
+        stackView.addArrangedSubview(textFieldLogin)
+        stackView.addArrangedSubview(viewSeparate)
+        stackView.addArrangedSubview(textFieldPass)
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -137,7 +160,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [button, textFieldLogin, textFieldPass, vkLogo].forEach { contentView.addSubview($0) }
+        [button, stackView, vkLogo].forEach { contentView.addSubview($0) }
 
         NSLayoutConstraint.activate([
         
@@ -146,20 +169,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             vkLogo.heightAnchor.constraint(equalToConstant: 100),
             vkLogo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
 
-
-            textFieldLogin.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            textFieldLogin.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            textFieldLogin.topAnchor.constraint(equalTo: vkLogo.bottomAnchor, constant: 120),
+            stackView.topAnchor.constraint(equalTo: vkLogo.bottomAnchor, constant: 120),
+            stackView.heightAnchor.constraint(equalToConstant: 100),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            textFieldLogin.topAnchor.constraint(equalTo: stackView.topAnchor),
             textFieldLogin.heightAnchor.constraint(equalToConstant: 50),
-
-            textFieldPass.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            textFieldPass.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            textFieldPass.topAnchor.constraint(equalTo: textFieldLogin.bottomAnchor),
-            textFieldPass.heightAnchor.constraint(equalToConstant: 50),
+            viewSeparate.topAnchor.constraint(equalTo: textFieldLogin.bottomAnchor),
+            viewSeparate.heightAnchor.constraint(equalToConstant: 0.5),
+            textFieldPass.topAnchor.constraint(equalTo: viewSeparate.bottomAnchor),
 
             button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            button.topAnchor.constraint(equalTo: textFieldPass.bottomAnchor, constant: 16),
+            button.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
             button.heightAnchor.constraint(equalToConstant: 50),
             button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
 
