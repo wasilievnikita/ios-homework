@@ -12,3 +12,15 @@ extension PostTableViewCell {
         String(describing: self)
     }
 }
+
+extension PhotosTableViewCell {
+    static var identifier: String {
+        String(describing: self)
+    }
+}
+
+extension PhotosCollectionViewCell {
+    static var identifier: String {
+        String(describing: self)
+    }
+}
