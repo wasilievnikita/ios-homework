@@ -25,7 +25,7 @@ class ProfileHeaderView: UIView {
         return view
     }()
     
-    private let avatarWrapView: UIView = {
+    private let photoFrame: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -122,7 +122,7 @@ class ProfileHeaderView: UIView {
         addSubview(photo)
         addSubview(statusButton)
         addSubview(textField)
-        addSubview(avatarWrapView)
+        addSubview(photoFrame)
         addSubview(backView)
         addSubview(photo)
         addSubview(closeAvatar)
@@ -164,16 +164,16 @@ class ProfileHeaderView: UIView {
             closeAvatar.topAnchor.constraint(equalTo: topAnchor, constant: 5),
             closeAvatar.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             
-            avatarWrapView.widthAnchor.constraint(equalToConstant: 130),
-            avatarWrapView.heightAnchor.constraint(equalToConstant: 130),
-            avatarWrapView.topAnchor.constraint(equalTo: topAnchor,constant: 16),
-            avatarWrapView.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 16),
+            photoFrame.widthAnchor.constraint(equalToConstant: 130),
+            photoFrame.heightAnchor.constraint(equalToConstant: 130),
+            photoFrame.topAnchor.constraint(equalTo: topAnchor,constant: 16),
+            photoFrame.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 16),
             
-            name.leadingAnchor.constraint(equalTo: avatarWrapView.trailingAnchor, constant: 20),
-            name.topAnchor.constraint(equalTo: avatarWrapView.topAnchor, constant: 27),
+            name.leadingAnchor.constraint(equalTo: photoFrame.trailingAnchor, constant: 20),
+            name.topAnchor.constraint(equalTo: photoFrame.topAnchor, constant: 27),
             name.widthAnchor.constraint(equalToConstant: 120),
             
-            statusButton.topAnchor.constraint(equalTo: avatarWrapView.bottomAnchor, constant: 16),
+            statusButton.topAnchor.constraint(equalTo: photoFrame.bottomAnchor, constant: 16),
             statusButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             statusButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             statusButton.heightAnchor.constraint(equalToConstant: 50),
