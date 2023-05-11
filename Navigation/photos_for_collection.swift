@@ -1,11 +1,11 @@
 //
-//  photos_for_gallery.swift
+//  photos_for_collection.swift
 //  Navigation
 //
-//  Created by Никита Васильев on 28.04.2023.
+//  Created by Никита Васильев on 10.05.2023.
 //
 
-import Foundation
+import UIKit
 
 struct GalleryImages {
     var image: String
@@ -35,5 +35,3 @@ struct GalleryImages {
         return galleryImage
     }
 }
-
-

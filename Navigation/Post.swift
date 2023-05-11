@@ -2,10 +2,10 @@
 //  Post.swift
 //  Navigation
 //
-//  Created by Никита Васильев on 06.04.2023.
+//  Created by Никита Васильев on 10.05.2023.
 //
 
-import Foundation
+import UIKit
 
 struct Post {
     let author: String
