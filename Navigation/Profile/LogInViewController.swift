@@ -1,9 +1,18 @@
 
 import UIKit
 
-class LogInViewController: UIViewController, UITextFieldDelegate {
+final class LogInViewController: UIViewController {
     
     private let nc = NotificationCenter.default
+   
+    // MARK: - Making login and pass
+    
+    let lengthPass = 4
+    
+    let login = "ios"
+    let pass = "001122"
+ 
+    // MARK: - Making elements
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -25,12 +34,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         self.textFieldLogin.delegate = self
     }
     
-    //Закрытие клавиатуры по кнопке return
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return(true)
-    }
-    
     private lazy var vkLogo: UIImageView = {
         let vkLogo = UIImageView()
         vkLogo.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +42,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         vkLogo.image = UIImage(named: "logo")
         return vkLogo
     }()
-    
     
     private let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -61,18 +63,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
     }()
     
     private lazy var textFieldLogin: UITextField = {
-        let texField = UITextField()
-        texField.translatesAutoresizingMaskIntoConstraints = false
-        texField.font = .systemFont(ofSize: 16)
-        texField.textColor = .black
-        texField.textAlignment = .left
-        texField.leftViewMode = .always
-        texField.backgroundColor = .systemGray6
-        texField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
-        texField.autocapitalizationType = .none
-        texField.placeholder = " Email of phone "
-        
-        return texField
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = .systemFont(ofSize: 16)
+        textField.textColor = .black
+        textField.textAlignment = .left
+        textField.leftViewMode = .always
+        textField.backgroundColor = .systemGray6
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.autocapitalizationType = .none
+        textField.placeholder = " Email of phone "
+        return textField
     }()
     
     private lazy var textFieldPass: UITextField = {
@@ -90,6 +91,25 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return textField
     }()
     
+    private lazy var textFieldAlert: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.font = .systemFont(ofSize: 16)
+        textField.textColor = .systemRed
+        textField.textAlignment = .center
+        textField.layer.cornerRadius = 10
+        textField.layer.borderWidth = 0.5
+        textField.leftViewMode = .always
+        textField.backgroundColor = .systemGray6
+        textField.layer.borderColor = UIColor.systemRed.cgColor
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 0))
+        textField.autocapitalizationType = .none
+        textField.text = "Недостаточное количество символов"
+        textField.isHidden = true
+
+        return textField
+    }()
+    
     private lazy var button: UIButton = {
         let button = UIButton(type: .system)
         button.isUserInteractionEnabled = true
@@ -104,6 +124,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         return button
     }()
     
+    // MARK: - LifeCycle
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         nc.addObserver(self, selector: #selector(keyboardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -115,6 +137,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         nc.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         nc.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    // MARK: - Making funcs
     
     @objc private func keyboardShow(notification: NSNotification) {
         if let keyboardSize: CGRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
@@ -130,11 +154,49 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
         scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
     }
-    
+        
     @objc func showProfile() {
         let profileViewCOntroller = ProfileViewController()
-        navigationController?.pushViewController(profileViewCOntroller, animated: true)
+        
+        if (textFieldLogin.text!.isEmpty || textFieldPass.text!.isEmpty) {
+            shakeAnimationPass()
+            shakeAnimationLogin()
+            
+            if (textFieldPass.text?.count)! < lengthPass {
+                textFieldAlert.isHidden = false
+            }
+        } else if  textFieldPass.text == pass, textFieldLogin.text == login {
+                navigationController?.pushViewController(profileViewCOntroller, animated: true)
+                textFieldAlert.isHidden = true
+                textFieldPass.text = ""
+                textFieldLogin.text = ""
+            } else {
+                showAlert()
+            }
+        
     }
+    
+    private func shakeAnimationPass() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textFieldPass.center.x - 10, y: textFieldPass.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textFieldPass.center.x + 10, y: textFieldPass.center.y))
+        textFieldPass.layer.add(animation, forKey: "position")
+    }
+    
+    private func shakeAnimationLogin() {
+        let animation = CABasicAnimation(keyPath: "position")
+        animation.duration = 0.07
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.fromValue = NSValue(cgPoint: CGPoint(x: textFieldLogin.center.x - 10, y: textFieldLogin.center.y))
+        animation.toValue = NSValue(cgPoint: CGPoint(x: textFieldLogin.center.x + 10, y: textFieldLogin.center.y))
+        textFieldLogin.layer.add(animation, forKey: "position")
+    }
+    
+    // MARK: - Making layout
     
     func layout() {
         
@@ -160,7 +222,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
         ])
         
-        [button, stackView, vkLogo].forEach { contentView.addSubview($0) }
+        [button, stackView, vkLogo, textFieldAlert].forEach { contentView.addSubview($0) }
         
         NSLayoutConstraint.activate([
             
@@ -169,7 +231,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             vkLogo.heightAnchor.constraint(equalToConstant: 100),
             vkLogo.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
-            stackView.topAnchor.constraint(equalTo: vkLogo.bottomAnchor, constant: 120),
+            stackView.topAnchor.constraint(equalTo: vkLogo.bottomAnchor, constant: 80),
             stackView.heightAnchor.constraint(equalToConstant: 100),
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
@@ -182,10 +244,43 @@ class LogInViewController: UIViewController, UITextFieldDelegate {
             
             button.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             button.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            button.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+            button.topAnchor.constraint(equalTo: textFieldAlert.bottomAnchor, constant: 16),
             button.heightAnchor.constraint(equalToConstant: 50),
-            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            button.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            
+            textFieldAlert.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 16),
+            textFieldAlert.heightAnchor.constraint(equalToConstant: 50),
+            textFieldAlert.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            textFieldAlert.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
         ])
     }
+}
+
+// MARK: - Making extensions
+
+extension LogInViewController: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+
+        if textFieldPass.text!.isEmpty || textFieldLogin.text!.isEmpty {
+            shakeAnimationPass()
+            shakeAnimationLogin()
+        }
+        return true
+    }
+}
+
+extension LogInViewController {
+    func showAlert() {
+        let allert = UIAlertController(title: "Ошибка", message: "Неверный логин или пароль", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ок", style: .default) {_ in
+            print("Подверждение")
+        }
+        allert.addAction(okAction)
+        present(allert, animated: true)
+    }
+    
+    
 }

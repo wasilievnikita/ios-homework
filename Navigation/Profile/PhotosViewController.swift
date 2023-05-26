@@ -8,6 +8,8 @@
 import UIKit
 
 class PhotosViewController: UIViewController {
+   
+    private var initialImageRect: CGRect = .zero
     
     var galleryImages = GalleryImages.maketGallery()
     
@@ -88,3 +90,18 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
         inset
     }
 }
+
+
+//extension PhotosViewController: CustomCellDelegate {
+//    func didTapImageInCell(_ image: UIImage?, frameImage: CGRect, indexPath: IndexPath) {
+//        let rectCell = collectionView(PhotosViewController, cellForItemAt: indexPath)
+//
+//        let rectInSuperView = collectionView.
+//        initialImageRect = CGRect(x: frameImage.origin.x,
+//                                  y: frameImage.origin.y + rectInSuperView.origin.y,
+//                                  width: frameImage.width,
+//                                  height: frameImage.height)
+//
+//        animateImage(image, imageFrame: initialImageRect)
+//    }
+//}

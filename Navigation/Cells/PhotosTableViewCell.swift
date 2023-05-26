@@ -141,12 +141,10 @@ final class PhotosTableViewCell: UITableViewCell {
             photo4.leadingAnchor.constraint(equalTo: photo3.trailingAnchor, constant: inset2),
             photo4.bottomAnchor.constraint(equalTo: contentWhiteView.bottomAnchor, constant: -inset),
             photo4.heightAnchor.constraint(equalToConstant: imageSize),
-            photo4.widthAnchor.constraint(equalToConstant: imageSize),
-            
+            photo4.widthAnchor.constraint(equalToConstant: imageSize),          
         ])
-        
-        
     }
+    
     let photosViewController =  {
             PhotosViewController()
         }()

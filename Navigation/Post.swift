@@ -23,3 +23,7 @@ struct Post {
         return post
     }
 }
+var posts = Post.maketPost()
+var post: Post?
+
+
